@@ -14,8 +14,13 @@ h1 {
 
 .modes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+.operation-btn {
+  height: 90px;
+  border-radius: 10px;
 }
 
 .level-selector {

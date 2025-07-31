@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build": "ng build --configuration production",
+    "deploy": "npx angular-cli-ghpages --dir=dist/mateApp/browser --no-silent --repo=https://github.com/jl-castro/mate-app.git"
   },
   "prettier": {
     "overrides": [
