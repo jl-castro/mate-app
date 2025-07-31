@@ -1,0 +1,48 @@
+mat-card {
+  max-width: 700px;
+  margin: 5rem auto;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.level-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+
+.level-value {
+  font-weight: bold;
+  font-size: 1.4rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.level-btn > span {
+  display: grid;
+  place-items: center;
+  font-size: 0.7em;
+}
+
+@media (min-width: 1500px) {
+  .modes {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

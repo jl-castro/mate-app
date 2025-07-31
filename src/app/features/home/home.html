@@ -1,0 +1,31 @@
+<mat-card>
+  <h1>Modo de práctica</h1>
+
+  <div class="level-selector">
+    <label>Nivel:</label>
+
+    <button class="level-btn" mat-icon-button (click)="decreaseLevel()" [disabled]="level <= 1">
+      <span>➖</span>
+    </button>
+
+    <span class="level-value">{{ level }}</span>
+
+    <button class="level-btn" mat-icon-button (click)="increaseLevel()" [disabled]="level >= 5">
+      <span>➕</span>
+    </button>
+  </div>
+
+  <div class="modes">
+    <button mat-raised-button color="primary" [routerLink]="['/quiz/addition']">➕ Suma</button>
+
+    <button mat-raised-button color="accent" [routerLink]="['/quiz/multiplication']">✖️ Multiplicación</button>
+
+    <button mat-raised-button color="warn" [routerLink]="['/quiz/subtraction']">➖ Resta</button>
+
+    <button mat-raised-button color="success" [routerLink]="['/quiz/division']">➗ División</button>
+
+    <button mat-raised-button color="primary" routerLink="/fractions/add">➕ Suma de Fracciones</button>
+
+    <button mat-raised-button color="primary" routerLink="/fractions/sub">➖ Resta de Fracciones</button>
+  </div>
+</mat-card>

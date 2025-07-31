@@ -1,0 +1,16 @@
+<mat-card>
+  <h2 [innerHTML]="formatFraction(question)"></h2>
+
+  <div class="options">
+    @for (option of options; track option.id) {
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="checkAnswer(option.value)"
+        [innerHTML]="formatFraction(option.value)"
+      ></button>
+    }
+  </div>
+
+  <button class="back-btn" mat-button color="warn" routerLink="/">← Volver al inicio</button>
+</mat-card>
