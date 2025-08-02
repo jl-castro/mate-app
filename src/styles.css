@@ -9,3 +9,8 @@ body {
   background: #f2f7fc;
   font-family: 'Segoe UI', sans-serif;
 }
+
+app-timer > .timer {
+  position: absolute;
+  right: 5em;
+}

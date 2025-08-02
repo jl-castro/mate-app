@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { QuizShellComponent } from '../../../shared/quiz/quiz-shell';
 import { QuizGeneratorService } from '../../../core/services/quiz-generator.service';
 import { QuizOption } from '../../../shared/models/quiz-data.interface';
+import { Timer } from '../../../shared/components/timer/timer';
+import { QuizTimerService } from '../../../core/services/quiz-timer.service';
 
 @Component({
   standalone: true,
   selector: 'app-subtraction-quiz',
-  imports: [QuizShellComponent],
+  imports: [QuizShellComponent, Timer],
   template: `
+    <app-timer [duration]="60" (finished)="onTimeUp()"></app-timer>
+
     <app-quiz-shell
       [question]="question"
       [options]="options"
@@ -20,6 +24,7 @@ export class SubtractionQuizComponent {
   public question = '';
   public correctAnswer: number | string = '';
   public options: QuizOption[] = [];
+  private quizTimerService = inject(QuizTimerService);
 
   constructor(private quizService: QuizGeneratorService) {
     this.generateQuestion();
@@ -32,5 +37,9 @@ export class SubtractionQuizComponent {
     this.question = quiz.question;
     this.correctAnswer = quiz.answer;
     this.options = quiz.options;
+  }
+
+  onTimeUp() {
+    this.quizTimerService.onTimeUp();
   }
 }
