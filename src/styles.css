@@ -12,5 +12,6 @@ body {
 
 app-timer > .timer {
   position: absolute;
-  right: 5em;
+  top: 20px;
+  left: calc(50% - 40px);
 }
