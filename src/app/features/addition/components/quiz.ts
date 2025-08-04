@@ -3,7 +3,7 @@ import { QuizShellComponent } from '../../../shared/quiz/quiz-shell';
 import { QuizGeneratorService } from '../../../core/services/quiz-generator.service';
 import { QuizOption } from '../../../shared/models/quiz-data.interface';
 import { Timer } from '../../../shared/components/timer/timer';
-import { QuizTimerService } from '../../../core/services/quiz-timer.service';
+import { QuizTimeUpService } from '../../../core/services/quiz-time-up.service';
 
 @Component({
   standalone: true,
@@ -16,7 +16,7 @@ import { QuizTimerService } from '../../../core/services/quiz-timer.service';
       [question]="question"
       [options]="options"
       [correctAnswer]="correctAnswer"
-      (onCorrect)="generateQuestion()"
+      (onCorrect)="handleCorrectAnswer()"
     />
   `
 })
@@ -24,13 +24,14 @@ export class AdditionQuizComponent {
   public question = '';
   public correctAnswer: number | string = '';
   public options: QuizOption[] = [];
-  private quizTimerService = inject(QuizTimerService);
+  private correctAnswerCount = 0;
+  private quizTimerService = inject(QuizTimeUpService);
 
   constructor(private quizService: QuizGeneratorService) {
     this.generateQuestion();
   }
 
-  generateQuestion() {
+  private generateQuestion() {
     const savedLevel = sessionStorage.getItem('LEVEL');
     const level = Number(savedLevel) || 1;
     const quiz = this.quizService.generate('add', level);
@@ -40,6 +41,11 @@ export class AdditionQuizComponent {
   }
 
   onTimeUp() {
-    this.quizTimerService.onTimeUp();
+    this.quizTimerService.handleTimeUp(this.correctAnswerCount);
+  }
+
+  handleCorrectAnswer(): void {
+    this.generateQuestion();
+    this.correctAnswerCount++;
   }
 }

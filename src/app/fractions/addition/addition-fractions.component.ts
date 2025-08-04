@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { QuizShellComponent } from '../../shared/quiz/quiz-shell';
 import { generateFractionAdditionQuiz } from './fraction-addition.generator';
 import { FractionQuiz } from '../../shared/models/quiz-data.interface';
-import { QuizTimerService } from '../../core/services/quiz-timer.service';
+import { QuizTimeUpService } from '../../core/services/quiz-time-up.service';
 import { Timer } from '../../shared/components/timer/timer';
 
 @Component({
@@ -15,30 +15,36 @@ import { Timer } from '../../shared/components/timer/timer';
       [question]="data.question"
       [options]="data.options"
       [correctAnswer]="data.correctAnswer"
-      (onCorrect)="nextQuestion()"
+      (onCorrect)="handleCorrectAnswer()"
     />
   `,
   imports: [QuizShellComponent, Timer]
 })
 export class AdditionFractionsComponent {
   public data: FractionQuiz;
-  private quizTimerService = inject(QuizTimerService);
+  private correctAnswerCount = 0;
+  private quizTimerService = inject(QuizTimeUpService);
 
   constructor() {
     this.data = this.generateQuestion();
   }
 
-  generateQuestion(): FractionQuiz {
+  private generateQuestion(): FractionQuiz {
     const savedLevel = sessionStorage.getItem('LEVEL');
     const level = Number(savedLevel) || 1;
     return generateFractionAdditionQuiz(level);
   }
 
-  nextQuestion() {
+  private nextQuestion() {
     this.data = this.generateQuestion();
   }
 
   onTimeUp() {
-    this.quizTimerService.onTimeUp();
+    this.quizTimerService.handleTimeUp(this.correctAnswerCount);
+  }
+
+  handleCorrectAnswer(): void {
+    this.nextQuestion();
+    this.correctAnswerCount++;
   }
 }
