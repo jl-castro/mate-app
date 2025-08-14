@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { QuizShellComponent } from '../../../shared/quiz/quiz-shell';
 import { QuizGeneratorService } from '../../../core/services/quiz-generator.service';
 import { QuizOption } from '../../../shared/models/quiz-data.interface';
@@ -10,17 +10,20 @@ import { QuizTimeUpService } from '../../../core/services/quiz-time-up.service';
   selector: 'app-addition-quiz',
   imports: [QuizShellComponent, Timer],
   template: `
-    <app-timer [duration]="60" (finished)="onTimeUp()"></app-timer>
+    <app-timer #timerRef [duration]="60" (finished)="onTimeUp()"></app-timer>
 
     <app-quiz-shell
       [question]="question"
       [options]="options"
       [correctAnswer]="correctAnswer"
       (onCorrect)="handleCorrectAnswer()"
+      (onIncorrect)="handleIncorrectAnswer()"
     />
   `
 })
 export class AdditionQuizComponent {
+  @ViewChild('timerRef') timer!: Timer;
+
   public question = '';
   public correctAnswer: number | string = '';
   public options: QuizOption[] = [];
@@ -47,5 +50,9 @@ export class AdditionQuizComponent {
   handleCorrectAnswer(): void {
     this.generateQuestion();
     this.correctAnswerCount++;
+  }
+
+  handleIncorrectAnswer(): void {
+    this.timer.reduce();
   }
 }
