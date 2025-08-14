@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { QuizShellComponent } from '../../shared/quiz/quiz-shell';
 import { FractionQuiz } from '../../shared/models/quiz-data.interface';
 import { generateFractionSubtractionQuiz } from './fraction-subtraction.generator';
@@ -9,18 +9,21 @@ import { QuizTimeUpService } from '../../core/services/quiz-time-up.service';
   standalone: true,
   selector: 'app-subtraction-fractions',
   template: `
-    <app-timer [duration]="60" (finished)="onTimeUp()"></app-timer>
+    <app-timer #timerRef [duration]="60" (finished)="onTimeUp()"></app-timer>
 
     <app-quiz-shell
       [question]="data.question"
       [options]="data.options"
       [correctAnswer]="data.correctAnswer"
       (onCorrect)="handleCorrectAnswer()"
+      (onIncorrect)="handleIncorrectAnswer()"
     />
   `,
   imports: [QuizShellComponent, Timer]
 })
 export class SubtractionFractionsComponent {
+  @ViewChild('timerRef') timer!: Timer;
+
   public data: FractionQuiz;
   private correctAnswerCount = 0;
   private quizTimerService = inject(QuizTimeUpService);
@@ -46,5 +49,9 @@ export class SubtractionFractionsComponent {
   handleCorrectAnswer(): void {
     this.nextQuestion();
     this.correctAnswerCount++;
+  }
+
+  handleIncorrectAnswer(): void {
+    this.timer.reduce();
   }
 }

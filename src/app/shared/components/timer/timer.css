@@ -1,12 +1,12 @@
 .timer {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  background-color: #F08B51;
+  background-color: #33A1E0;
   padding: 1rem;
   color: #FFF8E8;
-  border-radius: 12px;
+  border-radius: 8px;
   text-align: center;
-  width: 40px;
+  width: 30px;
   margin: 0 auto 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-family: 'Courier New', monospace;

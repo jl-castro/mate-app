@@ -18,6 +18,7 @@ export class QuizShellComponent {
   @Input() options: QuizOption[] = [];
   @Input() correctAnswer!: number | string;
   @Output() onCorrect = new EventEmitter<void>();
+  @Output() onIncorrect = new EventEmitter<void>();
 
   private snackBar = inject(MatSnackBar);
 
@@ -26,6 +27,7 @@ export class QuizShellComponent {
       this.snackBar.open('✅ ¡Correcto!', 'Cerrar', {duration: 1500});
       this.onCorrect.emit();
     } else {
+      this.onIncorrect.emit();
       this.snackBar.open('❌ Incorrecto. Intenta otra vez.', 'Cerrar', {duration: 2000});
     }
   }
@@ -39,5 +41,4 @@ export class QuizShellComponent {
       return `<span class="frac"><sup>${num}</sup>&frasl;<sub>${den}</sub></span>`;
     });
   }
-
 }
